@@ -1,0 +1,14 @@
+[package]
+name = "binacle"
+version = "1.0.0"
+authors = ["Guillaume Jeanne"]
+
+[dependencies]
+memmap = "*"
+rustc-serialize = "*"
+docopt = "*"
+fs2 = "*"
+walkdir = "*"
+time = "*"
+fast-math = "*"
+regex = "*"
