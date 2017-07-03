@@ -14,6 +14,16 @@ Binacle is a database written in Rust designed to index the full content of bina
 
 # Compilation
 *  Install Cargo, the Rust package manager
+    
+    On Ubuntu, Install Cargo with rustup:
+    `curl https://sh.rustup.rs -sSf >> rust_install.sh`
+    
+    `chmod +x rust_install.sh`
+    
+    `./rust_install.sh`
+    
+    Add ~/.cargo/bin to PATH 
+
 *  Launch "cargo build --release"
 
 # Documentation
