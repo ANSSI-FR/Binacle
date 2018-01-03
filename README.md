@@ -1,13 +1,13 @@
 # Binacle
 Indexation "full-bin" of binary files
 
-Originally presented at [SSTIC 2017] ( https://www.sstic.org/2017/presentation/binacle_indexation_full-bin_de_fichiers_binaires/ )
+Originally presented at [SSTIC 2017](https://www.sstic.org/2017/presentation/binacle_indexation_full-bin_de_fichiers_binaires/)
 
 # Warning
 This is a beta version, use at your own risk!
 
 # Technical aspects
-Please read the [SSTIC 2017] ( https://www.sstic.org/2017/presentation/binacle_indexation_full-bin_de_fichiers_binaires/ ) white paper.
+Please read the [SSTIC 2017](https://www.sstic.org/2017/presentation/binacle_indexation_full-bin_de_fichiers_binaires/) white paper.
 
 # Description
 Binacle is a database written in Rust designed to index the full content of binary files. It splits hexadecimal sequences into 4-grams and inserts them in a hashtable file that is mapped in-memory.
