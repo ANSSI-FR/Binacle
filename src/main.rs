@@ -3,8 +3,11 @@ extern crate docopt;
 extern crate walkdir;
 extern crate time;
 extern crate regex;
+extern crate twoway;
 
 use std::env;
+use std::fs::OpenOptions;
+use std::io::Read;
 use rustc_serialize::hex::FromHex;
 use rustc_serialize::json;
 use docopt::Docopt;
@@ -21,10 +24,11 @@ Usage:
        binacle <db_name> -f <id> <file>
        binacle <db_name> --files <files_and_ids>
        binacle <db_name> --rec <dir>
-       binacle <db_name> -s [hex] <string>
+       binacle <db_name> -s [exact] [hex] <string>
 
 Options:
-    hex, --hex  Provide hexa string.
+    exact, --exact  Show exact matches
+    hex, --hex      Provide hexa string.
 ";
 
 fn main() {
@@ -85,10 +89,27 @@ fn main() {
 
         if db.is_map() {
             let res = db.to_map(&result_id).unwrap();
+            let mut nb = 0;
             for f in &res {
-                println!("{}", f);
+                if args.get_bool("exact") {
+                    let mut file = OpenOptions::new().read(true).open(f).unwrap();
+                    let mut content = Vec::new();
+                    file.read_to_end(&mut content).unwrap();
+                    let pattern = if args.get_bool("hex") {
+                        args.get_str("<string>").from_hex().unwrap()
+                    } else {
+                        Vec::from(args.get_str("<string>").as_bytes())
+                    };
+                    if twoway::find_bytes(&content, &pattern) != None {
+                        println!("{}", f);
+                        nb += 1;
+                    }
+                } else {
+                    println!("{}", f);
+                    nb += 1;
+                }
             }
-            println!("{} result(s)", res.len());
+            println!("{} result(s)", nb);
         } else {
             println!("{}", json::encode(&result_id).unwrap());    
         }
